@@ -153,7 +153,7 @@ function ProblemPage(props) {
                 return null;
             })
             .filter((element) => {
-                return element !== undefined;
+                return element !== null;
             });
     }, [question.problem]);
 
