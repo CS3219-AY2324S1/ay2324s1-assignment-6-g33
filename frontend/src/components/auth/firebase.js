@@ -23,7 +23,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-console.log(process.env);
+// console.log(process.env);
 const app = initializeApp(firebaseConfig);
 export const fs = getFirestore(app);
 export const auth = getAuth(app);
