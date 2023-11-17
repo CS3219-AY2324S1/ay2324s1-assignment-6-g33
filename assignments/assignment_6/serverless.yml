@@ -1,0 +1,33 @@
+service: leetcode-fetcher
+
+frameworkVersion: "3"
+
+useDotenv: true
+
+plugins:
+  - serverless-python-requirements
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: ap-southeast-1 # Replace with your desired AWS region
+  environment:
+    LEETCODE_FETCH_LIMIT: ${env:LEETCODE_FETCH_LIMIT}
+    MONGO_URI: ${env:MONGO_URI}
+  iam:
+    role:
+      managedPolicies:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+
+functions:
+  fetchQuestions:
+    handler: main.lambda_handler # Replace 'handler' with your Python file and 'fetch_questions' with your Lambda handler function
+    timeout: 120 
+    memorySize: 512 
+    environment:
+      LEETCODE_FETCH_LIMIT: ${self:provider.environment.LEETCODE_FETCH_LIMIT}
+      MONGO_URI: ${self:provider.environment.MONGO_URI}
+    events:
+      - http:
+          path: fetch-questions
+          method: get 
