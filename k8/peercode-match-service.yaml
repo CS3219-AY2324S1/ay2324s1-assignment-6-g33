@@ -31,6 +31,11 @@ spec:
         - containerPort: 5002
         - containerPort: 8020
         env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: NODE_ENV
         - name: MATCH_SERVICE_PORT
           value: "5002"
         - name: MATCH_TIMEOUT
