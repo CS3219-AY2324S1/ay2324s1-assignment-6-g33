@@ -21,6 +21,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Serverless preparation
+        run: | 
+          # --config wants the serverless files in the root, so I move them there
+          echo move configuration file to the root folder
+          mv ./assignments/assignment_6/* .
+
       - name: Serverless
         uses: serverless/github-action@master
         with:
@@ -30,5 +36,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
           LEETCODE_FETCH_LIMIT: 2
-          SERVICE_ROOT: ./assignments/assignment_6
           # SLS_DEBUG: 1
